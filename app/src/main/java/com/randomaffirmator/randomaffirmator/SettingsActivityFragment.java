@@ -1,8 +1,12 @@
 package com.randomaffirmator.randomaffirmator;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +25,8 @@ public class SettingsActivityFragment extends Fragment {
     private boolean mActive;
     private Handler mHandler;
     private java.lang.Runnable mRunnable;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     public SettingsActivityFragment() {
     }
@@ -58,12 +64,30 @@ public class SettingsActivityFragment extends Fragment {
             public void onClick(View v) {
                 mActive = !mActive;
                 updateText(button);
+                setAlarm();
                 mHandler.removeCallbacks(mRunnable);
                 mHandler.postDelayed(mRunnable, 1000);
             }
         });
         updateText(button);
         return ret;
+    }
+
+    private void setAlarm() {
+        Context context = getActivity();
+        alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (mActive) {
+            if (null == alarmIntent) {
+                Intent intent = new Intent(context, AffirmationAlarmReceiver.class);
+                alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            }
+            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    SystemClock.elapsedRealtime() +
+                            6 * 1000, alarmIntent);
+        } else {
+            if (null != alarmIntent)
+                alarmMgr.cancel(alarmIntent);
+        }
     }
 
     private void updateText(TextView button) {

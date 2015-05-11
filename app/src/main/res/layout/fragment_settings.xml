@@ -10,14 +10,14 @@
 
     <TextView
         android:id="@+id/activate_button"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/activate"
-        android:textSize="@dimen/action_button_font_size"
         android:background="@drawable/button_background"
+        android:clickable="true"
+        android:text="@string/activate"
         android:textColor="@color/button_text"
+        android:textSize="@dimen/action_button_font_size"
         android:textStyle="bold" />
 
 </RelativeLayout>

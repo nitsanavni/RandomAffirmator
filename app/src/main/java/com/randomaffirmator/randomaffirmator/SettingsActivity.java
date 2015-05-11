@@ -1,10 +1,7 @@
 package com.randomaffirmator.randomaffirmator;
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.FragmentActivity;
 
 
 public class SettingsActivity extends FragmentActivity {

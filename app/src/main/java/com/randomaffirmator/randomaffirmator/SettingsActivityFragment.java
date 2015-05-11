@@ -1,14 +1,10 @@
 package com.randomaffirmator.randomaffirmator;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +21,6 @@ public class SettingsActivityFragment extends Fragment {
     private boolean mActive;
     private Handler mHandler;
     private java.lang.Runnable mRunnable;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
 
     public SettingsActivityFragment() {
     }
@@ -45,6 +39,8 @@ public class SettingsActivityFragment extends Fragment {
         SharedPreferences prefs = getActivity()
                 .getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         prefs.edit().putBoolean(KEY_ACTIVE, mActive).apply();
+        if (null != mHandler && null != mRunnable)
+            mHandler.removeCallbacks(mRunnable);
     }
 
     @Override

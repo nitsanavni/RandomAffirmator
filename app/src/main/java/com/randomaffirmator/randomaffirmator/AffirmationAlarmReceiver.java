@@ -11,6 +11,6 @@ public class AffirmationAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
+        context.startService(new Intent(context, AffirmationPlayerService.class));
     }
 }

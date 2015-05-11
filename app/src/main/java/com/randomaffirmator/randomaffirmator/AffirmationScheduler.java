@@ -18,6 +18,7 @@ public abstract class AffirmationScheduler {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AffirmationAlarmReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        // between 30 and 90 minutes
         Random r = new Random();
         int nextAlarmTimeMinutes = r.nextInt(90 - 30) + 30;
         alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +

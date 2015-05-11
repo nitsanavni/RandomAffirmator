@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
+import java.util.Calendar;
+
 public class AffirmationPlayerService extends Service {
     private MediaPlayer mediaPlayer;
 
@@ -31,8 +33,14 @@ public class AffirmationPlayerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mediaPlayer.start();
+        if (checkTimeOfDay())
+            mediaPlayer.start();
         return 1;
+    }
+
+    private boolean checkTimeOfDay() {
+        int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        return hourOfDay > 10 && hourOfDay < 20;
     }
 
     @Override

@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by nitsa_000 on 11-May-15.
  */
@@ -15,9 +18,10 @@ public abstract class AffirmationScheduler {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AffirmationAlarmReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() +
-                        6 * 1000, alarmIntent);
+        Random r = new Random();
+        int nextAlarmTimeMinutes = r.nextInt(90 - 30) + 30;
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
+                TimeUnit.MINUTES.toMillis(nextAlarmTimeMinutes), alarmIntent);
     }
 
     public static void unset(Context context) {

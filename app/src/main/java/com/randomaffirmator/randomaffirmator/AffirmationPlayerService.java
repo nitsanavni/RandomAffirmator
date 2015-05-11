@@ -1,7 +1,9 @@
 package com.randomaffirmator.randomaffirmator;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
@@ -33,9 +35,21 @@ public class AffirmationPlayerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (checkTimeOfDay())
+        if (checkTimeOfDay() && checkMute())
             mediaPlayer.start();
         return 1;
+    }
+
+    private boolean checkMute() {
+        AudioManager audio = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        switch (audio.getRingerMode()) {
+            case AudioManager.RINGER_MODE_NORMAL:
+                return true;
+            default:
+            case AudioManager.RINGER_MODE_SILENT:
+            case AudioManager.RINGER_MODE_VIBRATE:
+                return false;
+        }
     }
 
     private boolean checkTimeOfDay() {

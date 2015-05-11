@@ -19,7 +19,7 @@ public class AffirmationPlayerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer = MediaPlayer.create(this, R.raw.test);
+        mediaPlayer = MediaPlayer.create(this, R.raw.here_and_now);
         mediaPlayer.setLooping(false);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

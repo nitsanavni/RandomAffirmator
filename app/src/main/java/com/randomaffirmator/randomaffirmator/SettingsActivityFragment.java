@@ -75,18 +75,10 @@ public class SettingsActivityFragment extends Fragment {
 
     private void setAlarm() {
         Context context = getActivity();
-        alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (mActive) {
-            if (null == alarmIntent) {
-                Intent intent = new Intent(context, AffirmationAlarmReceiver.class);
-                alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-            }
-            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() +
-                            6 * 1000, alarmIntent);
+            AffirmationScheduler.set(context);
         } else {
-            if (null != alarmIntent)
-                alarmMgr.cancel(alarmIntent);
+            AffirmationScheduler.unset(context);
         }
     }
 

@@ -12,5 +12,6 @@ public class AffirmationAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         context.startService(new Intent(context, AffirmationPlayerService.class));
+        AffirmationScheduler.set(context);
     }
 }

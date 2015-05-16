@@ -11,13 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class SettingsActivityFragment extends Fragment {
 
-    private static final String SHARED_PREFS = "RandomAffirmator.SharedPrefs";
-    private static final String KEY_ACTIVE = "SettingsActivityFragment.KEY_ACTIVE";
     private boolean mActive;
     private Handler mHandler;
     private java.lang.Runnable mRunnable;
@@ -29,16 +24,16 @@ public class SettingsActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = getActivity()
-                .getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        mActive = prefs.getBoolean(KEY_ACTIVE, false);
+                .getSharedPreferences(Keys.SHARED_PREFS, Context.MODE_PRIVATE);
+        mActive = prefs.getBoolean(Keys.KEY_ACTIVE, false);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         SharedPreferences prefs = getActivity()
-                .getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        prefs.edit().putBoolean(KEY_ACTIVE, mActive).apply();
+                .getSharedPreferences(Keys.SHARED_PREFS, Context.MODE_PRIVATE);
+        prefs.edit().putBoolean(Keys.KEY_ACTIVE, mActive).apply();
         if (null != mHandler && null != mRunnable)
             mHandler.removeCallbacks(mRunnable);
     }
